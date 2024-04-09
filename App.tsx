@@ -87,7 +87,7 @@ export default function App() {
             <>
               <View style={styles.inputWrapper}>
                 <View style={styles.inputColumn}>
-                  <Text style={styles.heading}>Password Length : </Text>
+                  <Text style={[styles.heading,{fontWeight:'600'}]}>Password Length : </Text>
                   {touched.passwordLength && errors.passwordLength && (
                     <Text style={styles.errorText}>
                       {errors.passwordLength}
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
   UpperPart:{
     padding: 20,
     marginBottom:10,
-    // backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFFFFF',
   },
   appContainer: {
     flex: 1,
@@ -213,6 +213,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   inputStyle: {
+    backgroundColor: '#F4F4F4',
     padding: 8,
     width: '30%',
     borderWidth: 1,
@@ -233,6 +234,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginHorizontal: 8,
     backgroundColor: '#5DA3FA',
+    elevation:10
   },
   primaryBtnTxt: {
     color: '#fff',
@@ -240,14 +242,16 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   secondaryBtn: {
-    width: 120,
-    padding: 10,
+    width: 100,
+    padding: 17,
     borderRadius: 8,
     marginHorizontal: 8,
     backgroundColor: '#CAD5E2',
+    elevation:10
   },
   secondaryBtnTxt: {
     textAlign: 'center',
+    fontSize:17
   },
   card: {
     padding: 12,
