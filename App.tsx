@@ -33,10 +33,10 @@ export default function App() {
       characterList += uppercaseChar;
     }
     if(number){
-      characterList += digitchar;
+      characterList += digitchar + digitchar; // Add double the number of digits to the character list
     }
     if(symbol){
-      characterList += specialChar;
+      characterList += specialChar + specialChar; // Add double the number of special characters to the character list
     }
     const Resultpassword = createPassword(characterList, passwordLength);
     setPassword(Resultpassword)
@@ -61,8 +61,8 @@ export default function App() {
     setSymbol(false)
   }
   return (
-    <ScrollView> 
-      <SafeAreaView>
+    <ScrollView keyboardShouldPersistTaps="handled"> 
+      <SafeAreaView style={styles.appContainer}>
         <View style={styles.formContainer}>
           <Text style={styles.title}>PassWord GeneraTor</Text>
         </View>
@@ -70,7 +70,7 @@ export default function App() {
           <Formik
             initialValues={{passwordLength : ''}}
             validationSchema={PasswordSchema}
-            onSubmit={(values) => {
+            onSubmit={values => {
               console.log(values)
               passwordGenerated(+values.passwordLength); // + is used to make the string as number or else we would have used number(values.passwordLength)
             }}
@@ -105,8 +105,8 @@ export default function App() {
               <View style={styles.inputWrapper}>
                 <Text style={styles.heading}>Exclude LowerCase :</Text>
                 <BouncyCheckbox
-                  isChecked={!lowerCase}
-                  onPress={() => setLowerCase(!lowerCase)}
+                  isChecked={lowerCase}
+                  onPress={(isChecked) => setLowerCase(!lowerCase)}
                   fillColor="#29AB87"
                   size={28}
                   innerIconStyle={{borderWidth: 1.5}}
@@ -116,7 +116,7 @@ export default function App() {
                 <Text style={styles.heading}>Include UpperCase :</Text>
                 <BouncyCheckbox
                   isChecked={upperCase}
-                  onPress={() => setUpperCase(!upperCase)}
+                  onPress={(isChecked) => setUpperCase(!upperCase)}
                   fillColor="#FED85D"
                   size={28}
                   innerIconStyle={{borderWidth: 1.5}}
@@ -126,7 +126,7 @@ export default function App() {
                 <Text style={styles.heading}>Include Numbers :</Text>
                 <BouncyCheckbox
                   isChecked={number}
-                  onPress={() => setNumber(!number)}
+                  onPress={(isChecked) => setNumber(!number)}
                   fillColor="#C9A0DC"
                   size={28}
                   innerIconStyle={{borderWidth: 1.5}}
@@ -136,7 +136,7 @@ export default function App() {
                 <Text style={styles.heading}>Include Special Characters :</Text>
                 <BouncyCheckbox
                   isChecked={symbol}
-                  onPress={() => setSymbol(!symbol)}
+                  onPress={(isChecked) => setSymbol(!symbol)}
                   fillColor="#FC80A5"
                   size={28}
                   innerIconStyle={{borderWidth: 1.5}}
@@ -145,13 +145,13 @@ export default function App() {
               <View style={styles.formActions}>
                 <TouchableOpacity
                   disabled={!isValid}
-                  onPress={handleSubmit}
+                  onPress={() => handleSubmit()}
                   style={styles.primaryBtn}>
                   <Text style={styles.primaryBtnTxt}>Generate Password</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   disabled={!isValid}
-                  onPress={resetPasswordState}
+                  onPress={() => {resetPasswordState(), handleReset()}}
                   style={styles.secondaryBtn}>
                   <Text style={styles.secondaryBtnTxt}>Reset</Text>
                 </TouchableOpacity>
